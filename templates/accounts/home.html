@@ -14,10 +14,17 @@
         text-align: center;
     }
 
+    .welcome-message {
+        color: #ffffff;
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        font-weight: 300;
+    }
+
     .buttons-container {
         display: flex;
         gap: 2rem;
-        margin-top: 2rem;
+        margin-top: 1rem;
     }
 
     .btn {
@@ -69,9 +76,10 @@
 </style>
 
 <div class="hero-section">
+    <h2 class="welcome-message">You need to sign up or login</h2>
     <div class="buttons-container">
-        <a href="#" class="btn btn-login">Login</a>
-        <a href="#" class="btn btn-signup">Sign Up</a>
+        <a href="{% url 'login' %}" class="btn btn-login">Login</a>
+        <a href="{% url 'signup' %}" class="btn btn-signup">Sign Up</a>
     </div>
 </div>
 
