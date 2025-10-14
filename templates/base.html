@@ -1,6 +1,82 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-       background-color: purple;
-    }
-</style>
+        body {
+            background-color: rgb(210, 44, 188);
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color:  rgb(210, 44, 188);
+            box-shadow: 0 0px opx rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .navbar-logo {
+            text-decoration: none;
+            color: #f3f0f0;
+            font-size: 2rem;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-logo:hover {
+            color: rgb(53, 8, 53);
+        }
+
+        /* If you want to use an image instead of text */
+        .navbar-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .content-wrapper {
+            min-height: calc(100vh - 80px);
+        }
+    </style>
+</head>
+<body>
+    {% block navbar %}
+        <nav class="navbar">
+            <div class="navbar-container">
+                <a href="{% url 'home' %}" class="navbar-logo">
+                    <!-- Option 1: Text Logo -->
+                    OUR PROJECT
+                    <!-- <span>OUR PROJECT</span> -->
+                    
+                    <!-- Option 2: Image Logo (uncomment and replace src with your logo path) -->
+                    <!-- <img src="{% load static %}{% static 'images/logo.png' %}" alt="Logo"> -->
+                </a>
+            </div>
+        </nav>
+    {% endblock navbar %}
+
+    <div class="content-wrapper">
+        {% block content %}
+            
+        {% endblock content %}
+    </div>
+</body>
+</html> 

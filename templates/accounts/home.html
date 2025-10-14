@@ -1,10 +1,78 @@
 
 {% extends 'base.html' %}
 
+{% block title %}Welcome - Our Project{% endblock %}
+
 {% block content %}
+<style>
+    .hero-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        text-align: center;
+    }
 
-    <h1>Welcome to the Home Page</h1>
-    <p>This is the home page of our Django application.</p>
-    <p>Name: {{ name }}</p>
+    .buttons-container {
+        display: flex;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
 
-  {% endblock %}
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        min-width: 120px;
+        display: inline-block;
+    }
+
+    .btn-login {
+        background-color: #ffffff;
+        color: rgb(210, 44, 188);
+        border: 2px solid #ffffff;
+    }
+
+    .btn-login:hover {
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+
+    .btn-signup {
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #ffffff;
+    }
+
+    .btn-signup:hover {
+        background-color: #ffffff;
+        color: rgb(210, 44, 188);
+    }
+
+    @media (max-width: 768px) {
+        .buttons-container {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .btn {
+            width: 200px;
+        }
+    }
+</style>
+
+<div class="hero-section">
+    <div class="buttons-container">
+        <a href="#" class="btn btn-login">Login</a>
+        <a href="#" class="btn btn-signup">Sign Up</a>
+    </div>
+</div>
+
+{% endblock content %}
