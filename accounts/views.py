@@ -1,11 +1,14 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import UserProfile
+from ratelimit.decorators import ratelimit
 
 
 def home(request):
     return render(request , 'accounts\home.html', {'name': 'John Doe'})
 
+
+@ratelimit(key='ip', rate='5/m', block=True)
 def login_view(request):
     if request.method == 'POST':
         # Handle login logic here
