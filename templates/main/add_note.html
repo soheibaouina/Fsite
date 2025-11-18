@@ -42,6 +42,7 @@
 
 <div class="note-form-wrap">
   <form method="post" class="note-form" action="{% url 'add_note' %}">
+    
     {% csrf_token %}
     <h2>Create a new note</h2>
     <input type="text" name="title" placeholder="Title" required>

@@ -19,7 +19,8 @@
     <h2>Delete this note?</h2>
     <p>Are you sure you want to permanently delete "{{ note.title }}"? This action cannot be undone.</p>
     <form method="post" action="{% url 'delete_note' note.id %}" style="display:inline-block;">
-      {% csrf_token %}
+      
+        {% csrf_token %}
       <div class="confirm-actions">
         <a href="{% url 'note_home' %}" class="btn btn-cancel">Cancel</a>
         <button type="submit" class="btn btn-delete">Yes, delete</button>
