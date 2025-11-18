@@ -139,6 +139,7 @@ logging = {
             'level' : 'info',
             'propagate' : True,
 
-            
+
         }
     }
+}
