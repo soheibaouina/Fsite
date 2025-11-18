@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Note
 from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def note_home(request):
     notes = Note.objects.filter(author=request.user)
     return render(request, 'main/note_home.html', {'notes': notes})
