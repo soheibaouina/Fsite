@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Note{% endblock %}
+
+{% block content %}
+<style>
+  .note-form-wrap {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+  .note-form {
+    width: 100%;
+    max-width: 640px;
+    background: rgba(255,255,255,0.98);
+    padding: 1.8rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .note-form h2 { color: rgb(53,8,53); margin-bottom: 0.5rem; }
+  .note-form input[type="text"], .note-form textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  .note-form textarea { min-height: 180px; }
+  .form-actions { display:flex; gap:0.75rem; justify-content:flex-end; align-items:center; }
+  .btn { padding:0.75rem 1.2rem; border-radius:8px; font-weight:700; cursor:pointer; text-decoration:none; }
+  .btn-cancel { background:transparent; color:#666; border:1px solid transparent; }
+  .btn-save { background: rgb(210,44,188); color:#fff; border:2px solid rgb(210,44,188); }
+  .btn-save:hover { background:#fff; color: rgb(210,44,188); }
+  @media (max-width:480px){ .form-actions{ flex-direction:column-reverse; align-items:stretch; } }
+</style>
+
+<div class="note-form-wrap">
+  <form method="post" class="note-form" action="{% url 'add_note' %}">
+    {% csrf_token %}
+    <h2>Create a new note</h2>
+    <input type="text" name="title" placeholder="Title" required>
+    <textarea name="content" placeholder="Write your note here..."></textarea>
+
+    <div class="form-actions">
+      <a href="{% url 'note_home' %}" class="btn btn-cancel">Cancel</a>
+        <button type="submit" class="btn btn-save">Save Note</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,132 @@
+        {% extends 'base.html' %}
+
+{% block title %}Your Notes{% endblock %}
+
+{% block content %}
+<style>
+    .notes-container {
+        max-width: 1100px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .notes-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+    }
+
+    .notes-header h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    .btn-new {
+        background: #fff;
+        color: rgb(210,44,188);
+        padding: 0.6rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 700;
+    }
+
+    .notes-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .note-card {
+        background: rgba(255,255,255,0.95);
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+        display: flex;
+        flex-direction: column;
+        min-height: 140px;
+    }
+
+    .note-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: rgb(53,8,53);
+        margin-bottom: 0.5rem;
+    }
+
+    .note-content {
+        color: #333;
+        flex: 1 1 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    .note-meta {
+        margin-top: 0.75rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .note-actions a {
+        text-decoration: none;
+        color: rgb(210,44,188);
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+
+    .empty-state {
+        background: rgba(255,255,255,0.06);
+        border: 1px dashed rgba(255,255,255,0.12);
+        padding: 2rem;
+        border-radius: 12px;
+        text-align: center;
+        color: #fff;
+    }
+
+    @media (max-width: 600px) {
+        .notes-header h1 { font-size: 1.2rem; }
+    }
+</style>
+
+<div class="notes-container">
+    <div class="notes-header">
+        <h1>Your Notes</h1>
+        <a href="{% url 'add_note' %}" class="btn-new">+ New Note</a>
+    </div>
+
+    {% if notes and notes|length > 0 %}
+        <div class="notes-grid">
+            {% for note in notes %}
+                <div class="note-card">
+                    <div class="note-title">{{ note.title }}</div>
+                    <div class="note-content">{{ note.content|default:'(No content yet)' }}</div>
+                    <div class="note-meta">
+                        <small>{{ note.created_at|date:'M d, Y H:i' }}</small>
+                        <div class="note-actions">
+                            <a href="{% url 'view_note' note.id %}">View</a>
+                            <a href="{% url 'edit_note' note.id %}">Edit</a>
+                            <a href="{% url 'delete_note' note.id %}">Delete</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <h2>No notes yet</h2>
+            <p>Create your first note by clicking the <strong>New Note</strong> button above.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

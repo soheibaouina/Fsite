@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import UserProfile
 
@@ -14,7 +14,7 @@ def login_view(request):
 
         try:
             user_profile = UserProfile.objects.get(email=email, password=password)
-            return HttpResponse(f"Welcome back, {user_profile.name}!")
+            return render(request ,'main/note_home.html')
         except UserProfile.DoesNotExist:
             return HttpResponse("Invalid email or password.")
         
