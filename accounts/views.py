@@ -2,12 +2,13 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import UserProfile
 from ratelimit.decorators import ratelimit
+import logging
 
 
 def home(request):
     return render(request , 'accounts\home.html', {'name': 'John Doe'})
 
-
+logger = logging.getLogger('notes')
 @ratelimit(key='ip', rate='5/m', block=True)
 def login_view(request):
     if request.method == 'POST':
@@ -17,9 +18,11 @@ def login_view(request):
 
         try:
             user_profile = UserProfile.objects.get(email=email, password=password)
+            logger.info(f"User {email} logged in successfully.")
             return render(request ,'main/note_home.html')
         except UserProfile.DoesNotExist:
-            return HttpResponse("Invalid email or password.")
+            logger.warning(f"Failed login attempt for email: {email}")
+            return HttpResponse("Invalid email or password.")   
         
     return render(request, 'accounts/login.html')
 
